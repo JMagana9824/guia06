@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+        
+            <f:view>
+
+
+                <h:form>
+                    <h1><h:outputText value="Categoria"/></h1>
+                    <p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
+                    <h:outputText value="Mostrar solamente los utilizados" />
+                    <p:dataTable value="#{categoriaBean.categoriaList}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="IdCategoria"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCategoria}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Activo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.activo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Descripcion"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+             <h1><h:outputText value="Crear nuevo registro:"/></h1>
+            <p:panelGrid columns="2">
+            <h:outputText value="IdCategoria"/>
+            <p:inputText />
+            <h:outputText value="Nombre"/>
+            <p:inputText />
+            <h:outputText value="Activo"/>
+            <p:inputText />
+            <h:outputText value="Descripcion"/>
+            <p:inputText />
+            </p:panelGrid>
+
+
+
+
+             <h:form>
+                 <h1><h:outputText value="Create/Edit"/></h1>
+                 <p:panelGrid columns="2">
+                     <p:outputLabel value="IdCategoria:" for="idCategoria" />
+                     <p:inputText id="idCategoria" value="#{categoriaBean.cat.idCategoria}" title="IdCategoria" required="true" requiredMessage="The IdCategoria field is required."/>
+                     <p:outputLabel value="Nombre:" for="nombre" />
+                     <p:inputText id="nombre" value="#{categoriaBean.cat.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                     <p:outputLabel value="Activo:" for="activo" />
+                     <p:inputText id="activo" value="#{categoriaBean.cat.activo}" title="Activo" />
+                     <p:outputLabel value="Descripcion:" for="descripcion" />
+                     <p:inputText id="descripcion" value="#{categoriaBean.cat.descripcion}" title="Descripcion" />
+                 </p:panelGrid>
+             </h:form>
+
+
+            <p:commandButton value="Guardar" actionListener="#{buttonView.buttonAction}"/>
+             
+             <p:button value="Limpiar"></p:button>
+        </h:body>
+
+    </f:view>
+</html>
+

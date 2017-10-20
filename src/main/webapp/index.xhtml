@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+
+    <h:body>
+        
+        <f:view>
+            <h:form id="frmAg">
+                <h1><h:outputText value="Categorias"/></h1>
+                <div>
+                    <p:selectBooleanCheckbox id="chkUsados" value="#{categoriaBean.activo}" itemLabel="Motrar los no utilizados" >
+                        <p:ajax update="@all" listener="#{categoriaBean.chkFiltro()}"/>
+                    </p:selectBooleanCheckbox>
+                </div>
+
+                <p:dataTable value="#{categoriaBean.lista}" var="item" paginator="true" rows="5" selectionMode="single" selection="#{categoriaBean.cat}" rowKey="#{item.idCategoria}">
+                    <p:column sortBy="#{item.idCategoria}">
+                        <f:facet name="header">
+                            <h:outputText value="IdCategoria"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idCategoria}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Activo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.activo}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Descripcion"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descripcion}"/>
+                    </p:column>
+                    <p:ajax event="rowSelect" listener="#{categoriaBean.onRowSelect}" update="@all"/>
+
+                </p:dataTable>
+            </h:form>
+
+
+
+            <h:form id="frmAgg">
+
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <h:form>
+                    <h1><h:outputText value="Crear nuevo registro"/></h1>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nombre:" for="nombre" />
+                        <p:inputText id="nombre" value="#{categoriaBean.cat.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                        <p:outputLabel value="Activo:" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{categoriaBean.cat.activo}" />
+                        <p:outputLabel value="Descripcion:" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{categoriaBean.cat.descripcion}" title="Descripcion" />
+
+                    </p:panelGrid>
+
+                    <p:panel visible="#{!categoriaBean.btnEditar}" style="border: #004D40">
+                        <p:commandButton value="Guardar" actionListener="#{categoriaBean.crear()}" update="@all" />
+                        <p:commandButton value="Limpiar" actionListener="#{categoriaBean.limpiarbtn()}" update="@all" />
+                    </p:panel>
+
+                    <p:panel visible="#{categoriaBean.btnEditar}" style="border: #004D40">
+                        <p:commandButton value="Eliminar" actionListener="#{categoriaBean.eliminar()}" update="@all" />
+                        <p:commandButton value="Editar" actionListener="#{categoriaBean.editar()}" update="@all" />
+                        <p:commandButton value="Cancelar" actionListener="#{categoriaBean.btnCancelar()}"  update="@all"/>
+                            
+                    </p:panel>
+
+
+                </h:form>
+
+
+            </h:form>
+
+
+
+        </f:view>
+        <br/>
+
+    </h:body>
+</html>
+
